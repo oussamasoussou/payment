@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\GoCardlessWebhookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\GoCardlessController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +38,32 @@ Route::get('/payment/success', function () {
 Route::get('/payment/failure', function () {
     return view('payment-failure');
 })->name('payment.failure');
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('/customer/create', function () {
+    return view('customer.create');
+});
+
+Route::post('/gocardless/customer', [GoCardlessController::class, 'createCustomer']);
+
+Route::get('/payment/create', function () {
+    return view('payment.create');
+});
+
+Route::post('/gocardless/payment', [GoCardlessController::class, 'createPayment']);
+
+Route::post('/gocardless/mandate', [GoCardlessController::class, 'createMandate']);
+Route::get('/gocardless/mandate-success', [GoCardlessController::class, 'mandateSuccess']);
+
+Route::post('/gocardless/webhook', [GoCardlessWebhookController::class, 'handle']);
+
